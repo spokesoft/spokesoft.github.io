@@ -13,13 +13,13 @@ import buildStyles from "./styles/build.js";
 import buildViews from "./views/build.js";
 
 const buildAll = () => {
-    const promises = [];
-    promises.push(buildFavicons());
-    promises.push(buildIcons());
-    promises.push(buildScripts());
-    promises.push(buildStyles());
-    promises.push(buildViews());
-    return Promise.all(promises);
+  const promises = [];
+  promises.push(buildFavicons());
+  promises.push(buildIcons());
+  promises.push(buildScripts());
+  promises.push(buildStyles());
+  promises.push(buildViews());
+  return Promise.all(promises);
 };
 
 /*
@@ -33,14 +33,14 @@ import cleanStyles from "./styles/clean.js";
 import cleanViews from "./views/clean.js";
 
 const cleanAll = () => {
-    const promises = [];
-    promises.push(cleanFavicons());
-    promises.push(cleanIcons());
-    promises.push(cleanScripts());
-    promises.push(cleanStyles());
-    promises.push(cleanViews());
-    return Promise.all(promises);
-}
+  const promises = [];
+  promises.push(cleanFavicons());
+  promises.push(cleanIcons());
+  promises.push(cleanScripts());
+  promises.push(cleanStyles());
+  promises.push(cleanViews());
+  return Promise.all(promises);
+};
 
 /*
  * Define the watch tasks to watch for changes in the respective directories.
@@ -54,14 +54,14 @@ import watchStyles from "./styles/watch.js";
 import watchViews from "./views/watch.js";
 
 const watchAll = () => {
-    const promises = [];
-    promises.push(watchFavicons());
-    promises.push(watchIcons());
-    promises.push(watchScripts());
-    promises.push(watchStyles());
-    promises.push(watchViews());
-    return Promise.all(promises);
-}
+  const promises = [];
+  promises.push(watchFavicons());
+  promises.push(watchIcons());
+  promises.push(watchScripts());
+  promises.push(watchStyles());
+  promises.push(watchViews());
+  return Promise.all(promises);
+};
 
 /*
  * Define the default task to run when no specific task is provided.
@@ -69,10 +69,12 @@ const watchAll = () => {
  */
 
 const defaultTask = () => {
-    return new Promise((resolve, reject) => {
-        cleanAll().then(() => buildAll().then(resolve)).catch(reject);
-    });
-}
+  return new Promise((resolve, reject) => {
+    cleanAll()
+      .then(() => buildAll().then(resolve))
+      .catch(reject);
+  });
+};
 
 /*
  * Add descriptions to the tasks for better readability in the CLI output.
@@ -103,23 +105,23 @@ watchViews.description = "Watch views";
  */
 
 export {
-    buildAll,
-    buildFavicons,
-    buildIcons,
-    buildScripts,
-    buildStyles,
-    buildViews,
-    cleanAll,
-    cleanFavicons,
-    cleanIcons,
-    cleanScripts,
-    cleanStyles,
-    cleanViews,
-    defaultTask,
-    watchAll,
-    watchFavicons,
-    watchIcons,
-    watchScripts,
-    watchStyles,
-    watchViews,
+  buildAll,
+  buildFavicons,
+  buildIcons,
+  buildScripts,
+  buildStyles,
+  buildViews,
+  cleanAll,
+  cleanFavicons,
+  cleanIcons,
+  cleanScripts,
+  cleanStyles,
+  cleanViews,
+  defaultTask,
+  watchAll,
+  watchFavicons,
+  watchIcons,
+  watchScripts,
+  watchStyles,
+  watchViews,
 };
