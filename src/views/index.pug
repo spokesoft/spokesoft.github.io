@@ -1,5 +1,16 @@
 extends layout.pug
 block content
   div
-    h1.title spokesoft
+    h1.title
+      span#typewriter
+      span soft
     h2.subtitle A software development company
+
+block scripts
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/TypewriterJS/2.13.1/core.min.js")
+  script
+    |new Typewriter('#typewriter', {
+    | strings: ['speak', 'spoke'],
+    | autoStart: true,
+    | loop: true
+    |});
