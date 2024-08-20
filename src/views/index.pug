@@ -1,10 +1,15 @@
 extends layout.pug
 block content
-  div
-    h1.title
-      span#typewriter
-      span soft
-    h2.subtitle A software development company
+  .hero-body.is-justify-content-center
+    div(style="display: flex;").is-align-items-center
+      div.mr-5
+        figure.image.is-128x128
+          img(src="favicons/android-chrome-96x96.png")
+      div
+        h1.title
+          span#typewriter
+          span soft
+        h2.subtitle A software development company
 
 block scripts
   script(src="https://cdnjs.cloudflare.com/ajax/libs/TypewriterJS/2.13.1/core.min.js")
