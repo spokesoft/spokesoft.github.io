@@ -11,7 +11,8 @@ $beige-lighter: #eff0eb;
   $primary: $purple,
   $link: $pink,
   $control-border-width: 2px,
-  $input-shadow: none
+  $input-shadow: none,
+  $body-overflow-y: hidden
 );
 
 @import 'material-icons/iconfont/material-icons.scss';
