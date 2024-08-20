@@ -1,0 +1,26 @@
+html
+  head
+    title Spokesoft
+    include favicons.html
+    block meta
+    link(rel="stylesheet", href="css/spokesoft.css")
+    block styles
+  body
+    nav.navbar(role="navigation", aria-label="Main navigation")
+      .navbar-brand
+        a.navbar-item spokesoft
+        a.navbar-burger(role="button", aria-label="menu", aria-expanded="false", data-target="navbar-menu")
+          span(aria-hidden="true")
+          span(aria-hidden="true")
+          span(aria-hidden="true")
+          span(aria-hidden="true")
+      .navbar-menu#navbar-menu
+        .navbar-end
+          a.navbar-item(href="about.html") About
+          a.navbar-item(href="products.html") Products
+          a.navbar-item(href="team.html") Team
+          a.navbar-item(href="contact.html") Contact
+    block content
+    block modals
+    block templates
+    block scripts

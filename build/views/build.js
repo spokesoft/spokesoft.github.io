@@ -1,8 +1,28 @@
-import log from "fancy-log";
+import { info } from "fancy-log";
+import { compileFile } from "pug";
+import { writeFile } from "fs/promises";
 
 export default function buildViews() {
   return new Promise((resolve, reject) => {
-    log.info("Building views...");
-    resolve();
+
+    info("Building views...");
+
+    var locals = {};
+    
+    const aboutPage = compileFile("src/views/about.pug");
+    const contactPage = compileFile("src/views/contact.pug");
+    const indexPage = compileFile("src/views/index.pug");
+    const productsPage = compileFile("src/views/products.pug");
+    const teamPage = compileFile("src/views/team.pug");
+    
+    const promises = [];
+    promises.push(writeFile('www/about.html', aboutPage(locals)));
+    promises.push(writeFile('www/contact.html', contactPage(locals)));
+    promises.push(writeFile('www/index.html', indexPage(locals)));
+    promises.push(writeFile('www/products.html', productsPage(locals)));
+    promises.push(writeFile('www/team.html', teamPage(locals)));
+
+    Promise.all(promises).then(resolve).catch(reject);
+
   });
 }

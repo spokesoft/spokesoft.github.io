@@ -6,7 +6,7 @@ export default function buildStyles() {
   return new Promise((resolve, reject) => {
     info("Building styles...");
 
-    compileAsync("src/styles/spokesoft.scss", {})
+    compileAsync("src/styles/spokesoft.scss", { loadPaths: ["node_modules"] })
       .then((result) => {
         mkdir("www/css", { recursive: true, force: true })
           .then(() => {

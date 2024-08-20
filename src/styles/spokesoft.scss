@@ -4,7 +4,7 @@ $brown: #757763;
 $beige-light: #d0d1cd;
 $beige-lighter: #eff0eb;
 
-@use "../../node_modules/bulma/sass" with (
+@use "bulma/sass" with (
   $family-primary: '"Nunito", sans-serif',
   $grey-dark: $brown,
   $grey-light: $beige-light,
@@ -14,4 +14,5 @@ $beige-lighter: #eff0eb;
   $input-shadow: none
 );
 
+@import 'material-icons/iconfont/material-icons.scss';
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
