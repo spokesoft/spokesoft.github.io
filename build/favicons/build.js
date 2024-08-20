@@ -2,6 +2,7 @@ import favicons from "favicons";
 import { writeFile, mkdir } from "fs/promises";
 import { info } from "fancy-log";
 import { dirname } from "path";
+import ensureDirectory from "../ensure-directory.js";
 
 export default function buildFavicons() {
   return new Promise((resolve, reject) => {
@@ -38,7 +39,7 @@ export default function buildFavicons() {
           const writeNewImage = () =>
             writeFile(filepath, image.contents).then(logNewImage);
           promises.push(
-            mkdir(parent, { recursive: true, force: true }).then(writeNewImage)
+            ensureDirectory(parent, { recursive: true }).then(writeNewImage)
           );
         });
 

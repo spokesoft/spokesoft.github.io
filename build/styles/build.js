@@ -1,6 +1,7 @@
 import { info } from "fancy-log";
 import { mkdir, writeFile } from "fs/promises";
 import { compileAsync } from "sass";
+import ensureDirectory from "../ensure-directory.js";
 
 export default function buildStyles() {
   return new Promise((resolve, reject) => {
@@ -8,7 +9,7 @@ export default function buildStyles() {
 
     compileAsync("src/styles/spokesoft.scss", { loadPaths: ["node_modules"] })
       .then((result) => {
-        mkdir("www/css", { recursive: true, force: true })
+        ensureDirectory("www/css", { recursive: true, force: true })
           .then(() => {
             writeFile("www/css/spokesoft.css", result.css)
               .then(() => info(`Wrote file www/css/spokesoft.css`))
