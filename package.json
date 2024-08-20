@@ -1,0 +1,21 @@
+{
+  "name": "spokesoft.github.io",
+  "version": "1.0.0",
+  "description": "Spokesoft github pages site",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "del": "^7.1.0",
+    "fancy-log": "^2.0.0",
+    "favicons": "^7.2.0",
+    "gulp": "^5.0.0",
+    "pug": "^3.0.3",
+    "sass": "^1.77.8",
+    "typescript": "^5.5.4"
+  }
+}
