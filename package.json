@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "echo \"Built\""
+    "build": "gulp build:all"
   },
   "author": "",
   "license": "Apache-2.0",
