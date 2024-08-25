@@ -9,16 +9,19 @@ block content
         h1.title
           span#typewriter
           span soft
-        h2.subtitle software that works
-  footer.footer.p-5
-    .content
-      p © 2024 Spokesoft, Inc | All rights reserved 
+        h2.subtitle.pr-3(style="letter-spacing: 0.1rem;") ideas are bigger
 
 block scripts
   script(src="https://cdnjs.cloudflare.com/ajax/libs/TypewriterJS/2.13.1/core.min.js")
   script
-    |new Typewriter('#typewriter', {
-    | strings: ['speak', 'spoke'],
-    | autoStart: true,
-    | loop: true
-    |});
+    |var element = document.getElementById("typewriter")
+    |var typewriter = new Typewriter(element, {});
+    |typewriter
+    | .typeString('speak')
+    | .pauseFor(300)
+    | .deleteChars(5)
+    | .typeString('spoke')
+    | .start()
+    | .callFunction(() => {
+    |   typewriter.stop()
+    | });
