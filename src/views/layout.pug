@@ -37,6 +37,8 @@ html(lang="en")
     title Spokesoft
     include favicons.html
     block meta
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css", integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==", crossorigin="anonymous", referrerpolicy="no-referrer")
+    //- link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/brands.min.css")
     link(rel="stylesheet", href="css/spokesoft.css")
     block styles
   body
@@ -44,7 +46,15 @@ html(lang="en")
       block content
       footer.footer.p-5
         .content
-          p © 2024 Spokesoft, Inc <span class="m-2">|</span> All rights reserved 
+          .columns
+            .column
+              p © 2024 Spokesoft, Inc <span class="m-2">|</span> All rights reserved
+            .column
+              p.has-text-right
+                a.button.is-small(href="https://github.com/spokesoft")
+                  span.icon
+                    i.fab.fa-github
+                  span GitHub
     block modals
     block templates
     block scripts
