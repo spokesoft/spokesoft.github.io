@@ -1,0 +1,29 @@
+mixin navbar-item(href, title, active)
+  if active
+    a.navbar-item.active(href=href)= title
+  else  
+    a.navbar-item(href=href)= title
+
+mixin navbar(activePage: null)
+  - var indexIsActive = activePage == 'index'
+  - var aboutIsActive = activePage == 'about'
+  - var productsIsActive = activePage == 'products'
+  - var teamIsActive = activePage == 'team'
+  - var contactIsActive = activePage == 'contact'
+  nav.navbar(role="navigation", aria-label="Main navigation")
+    .navbar-brand
+      a.navbar-item(href="/") spokesoft
+      a.navbar-burger(role="button", aria-label="menu", aria-expanded="false", data-target="navbar-menu")
+        span(aria-hidden="true")
+        span(aria-hidden="true")
+        span(aria-hidden="true")
+        span(aria-hidden="true")
+    .navbar-menu#navbar-menu
+      if block
+        block
+      else
+        .navbar-end
+          +navbar-item("about.html", "About", aboutIsActive)
+          +navbar-item("products.html", "Products", productsIsActive)
+          +navbar-item("team.html", "Team", teamIsActive)
+          +navbar-item("contact.html", "Contact", contactIsActive)
