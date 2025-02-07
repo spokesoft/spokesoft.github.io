@@ -1,80 +1,71 @@
-import fs from "fs";
-import gulp from "gulp";
-import log from "fancy-log";
-
 /*
- * Define the build tasks to process the source files into the respective directories.
+ * Build tasks
  */
 
-import buildFavicons from "./favicons/build.js";
-import buildIcons from "./icons/build.js";
-import buildScripts from "./scripts/build.js";
-import buildStyles from "./styles/build.js";
-import buildViews from "./views/build.js";
+import { buildFavicons } from "./favicons/build.js"
+import { buildIcons } from "./icons/build.js"
+import { buildScripts } from "./scripts/build.js"
+import { buildStyles } from "./styles/build.js"
+import { buildViews } from "./views/build.js"
 
-const buildAll = () => {
-  const promises = [];
-  promises.push(buildFavicons());
-  promises.push(buildIcons());
-  promises.push(buildScripts());
-  promises.push(buildStyles());
-  promises.push(buildViews());
-  return Promise.all(promises);
-};
-
-/*
- * Define the clean tasks to remove the generated files from the respective directories.
- */
-
-import cleanFavicons from "./favicons/clean.js";
-import cleanIcons from "./icons/clean.js";
-import cleanScripts from "./scripts/clean.js";
-import cleanStyles from "./styles/clean.js";
-import cleanViews from "./views/clean.js";
-
-const cleanAll = () => {
-  const promises = [];
-  promises.push(cleanFavicons());
-  promises.push(cleanIcons());
-  promises.push(cleanScripts());
-  promises.push(cleanStyles());
-  promises.push(cleanViews());
-  return Promise.all(promises);
-};
+const buildAll = async () => {
+  await buildFavicons() // Favicons is required before building views
+  const promises = []
+  promises.push(buildIcons())
+  promises.push(buildScripts())
+  promises.push(buildStyles())
+  promises.push(buildViews())
+  await Promise.all(promises)
+}
 
 /*
- * Define the watch tasks to watch for changes in the respective directories.
- * When changes are detected, it cleans the directory and then builds the corresponding files.
+ * Clean tasks
  */
 
-import watchFavicons from "./favicons/watch.js";
-import watchIcons from "./icons/watch.js";
-import watchScripts from "./scripts/watch.js";
-import watchStyles from "./styles/watch.js";
-import watchViews from "./views/watch.js";
+import { cleanFavicons } from "./favicons/clean.js"
+import { cleanIcons } from "./icons/clean.js"
+import { cleanScripts } from "./scripts/clean.js"
+import { cleanStyles } from "./styles/clean.js"
+import { cleanViews } from "./views/clean.js"
 
-const watchAll = () => {
-  const promises = [];
-  promises.push(watchFavicons());
-  promises.push(watchIcons());
-  promises.push(watchScripts());
-  promises.push(watchStyles());
-  promises.push(watchViews());
-  return Promise.all(promises);
-};
+const cleanAll = async () => {
+  const promises = []
+  promises.push(cleanFavicons())
+  promises.push(cleanIcons())
+  promises.push(cleanScripts())
+  promises.push(cleanStyles())
+  promises.push(cleanViews())
+  await Promise.all(promises)
+}
 
 /*
- * Define the default task to run when no specific task is provided.
- * It cleans all and then builds all.
+ * Watch tasks
  */
 
-const defaultTask = () => {
-  return new Promise((resolve, reject) => {
-    cleanAll()
-      .then(() => buildAll().then(resolve))
-      .catch(reject);
-  });
-};
+import { watchFavicons } from "./favicons/watch.js"
+import { watchIcons } from "./icons/watch.js"
+import { watchScripts } from "./scripts/watch.js"
+import { watchStyles } from "./styles/watch.js"
+import { watchViews } from "./views/watch.js"
+
+const watchAll = async () => {
+  const promises = []
+  promises.push(watchFavicons())
+  promises.push(watchIcons())
+  promises.push(watchScripts())
+  promises.push(watchStyles())
+  promises.push(watchViews())
+  await Promise.all(promises)
+}
+
+/*
+ * Default task
+ */
+
+const defaultTask = async () => {
+  await cleanAll()
+  await buildAll()
+}
 
 /*
  * Add descriptions to the tasks for better readability in the CLI output.
@@ -105,6 +96,7 @@ watchViews.description = "Watch views";
  */
 
 export {
+  defaultTask,
   buildAll,
   buildFavicons,
   buildIcons,
@@ -117,11 +109,10 @@ export {
   cleanScripts,
   cleanStyles,
   cleanViews,
-  defaultTask,
   watchAll,
   watchFavicons,
   watchIcons,
   watchScripts,
   watchStyles,
   watchViews,
-};
+}

@@ -1,7 +1,8 @@
-import { deleteAsync } from "del";
+import { deleteAsync } from "del"
+import { config } from "./config.js"
+import { info } from "fancy-log"
 
-export default function cleanStyles() {
-  return new Promise((resolve, reject) => {
-    deleteAsync("www/css").then(resolve).catch(reject);
-  });
+export async function cleanStyles() {
+  await deleteAsync(config.dist)
+  info(`Cleaned ${config.dist}`)
 }

@@ -1,57 +1,53 @@
-import favicons from "favicons";
-import { writeFile, mkdir } from "fs/promises";
-import { info } from "fancy-log";
-import { dirname } from "path";
-import ensureDirectory from "../ensure-directory.js";
+import { favicons } from "favicons"
+import { writeFile, mkdir } from "fs/promises"
+import { config } from "./config.js"
+import { info } from "fancy-log"
+import { join, dirname } from "path"
 
-export default function buildFavicons() {
-  return new Promise((resolve, reject) => {
-    info("Building favicons ...");
+export async function buildFavicons() {
+  const response = await favicons(config.src, {
+    path: '/favicons',
+    appName: 'Spokesoft',
+    icons: {
+      android: true,
+      appleIcon: true,
+      favicons: true,
+      windows: true
+    }
+  })
 
-    const sourceFile = "src/images/icon.png";
+  await mkdir(config.dest, { recursive: true })
+  await mkdir(dirname(config.partial), { recursive: true })
 
-    const options = {
-      path: "/favicons",
-      appName: "Spokesoft",
-    };
+  await Promise.all(
+    response.images.map(image => {
+      writeFile(join(config.dest, image.name), image.contents)
+      info(`Wrote image ${join(config.dest, image.name)}`)
+    })
+  )
 
-    favicons(sourceFile, options)
-      .then((response) => {
-        const promises = [];
+  await Promise.all(
+    response.files.map(file => {
+      writeFile(join(config.dest, file.name), file.contents)
+      info(`Wrote image ${join(config.dest, file.name)}`)
+    })
+  )
 
-        // Write the files to the favicons directory
-        response.files.forEach((file) => {
-          const filepath = "www/favicons/" + file.name;
-          const parent = dirname(filepath);
-          const logNewFile = () => info(`Wrote file ${filepath}`);
-          const writeNewFile = () =>
-            writeFile(filepath, file.contents).then(logNewFile);
-          promises.push(
-            mkdir(parent, { recursive: true, force: true }).then(writeNewFile)
-          );
-        });
-
-        // Write the images to the favicons directory
-        response.images.forEach((image) => {
-          const filepath = "www/favicons/" + image.name;
-          const parent = dirname(filepath);
-          const logNewImage = () => info(`Wrote file ${filepath}`);
-          const writeNewImage = () =>
-            writeFile(filepath, image.contents).then(logNewImage);
-          promises.push(
-            ensureDirectory(parent, { recursive: true }).then(writeNewImage)
-          );
-        });
-
-        // Write the html response to the source views directory
-        promises.push(
-          writeFile("src/views/favicons.html", response.html.join("\n")).then(
-            () => info(`Wrote file src/views/favicons.html`)
-          )
-        );
-
-        Promise.all(promises).then(resolve).catch(reject);
-      })
-      .catch(reject);
-  });
+  await writeFile(config.partial, response.html.join('\n'))
 }
+
+function htmlToPug(html) {
+  return html
+    .replace(/<(link|meta)([^>]+)\/>/g, (_, tag, attrs) => {
+      const attributes = attrs
+        .trim()
+        .split(/\s+/)
+        .map(attr => {
+          const [key, value] = attr.split('=');
+          return value ? `${key}=${value}` : key;
+        })
+        .join(', ');
+      
+      return `${tag}(${attributes})`;
+    });
+ }

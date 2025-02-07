@@ -1,7 +1,9 @@
-import { deleteAsync } from "del";
+import { deleteAsync } from "del"
+import { config } from "./config.js"
+import { info } from "fancy-log"
+import { join } from "path"
 
-export default function cleanViews() {
-  return new Promise((resolve, reject) => {
-    return deleteAsync("www/**/*.html").then(resolve).catch(reject);
-  });
+export async function cleanViews() {
+  await deleteAsync(join(config.dest, '/**/*.html'))
+  info(`Cleaned ${join(config.dest, '/**/*.html')}`)
 }

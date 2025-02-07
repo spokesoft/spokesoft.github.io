@@ -1,7 +1,8 @@
-import { deleteAsync } from "del";
+import { deleteAsync } from "del"
+import { config } from "./config.js"
+import { info } from "fancy-log"
 
-export default function cleanIcons() {
-  return new Promise((resolve, reject) => {
-    deleteAsync("www/icons").then(resolve).catch(reject);
-  });
+export async function cleanIcons() {
+  await deleteAsync(config.dest)
+  info(`Cleaned ${config.dest}`)
 }

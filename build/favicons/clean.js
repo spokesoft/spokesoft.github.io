@@ -1,7 +1,10 @@
-import { deleteAsync } from "del";
+import { deleteAsync } from "del"
+import { config } from "./config.js"
+import { info } from "fancy-log"
 
-export default function cleanFavicons() {
-  return new Promise((resolve, reject) => {
-    deleteAsync("www/favicons").then(resolve).catch(reject);
-  });
+export async function cleanFavicons() {
+  await deleteAsync(config.dest)
+  info(`Cleaned ${config.dest}`)
+  await deleteAsync(config.partial)
+  info(`Cleaned ${config.partial}`)
 }
